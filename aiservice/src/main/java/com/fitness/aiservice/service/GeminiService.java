@@ -3,6 +3,7 @@ package com.fitness.aiservice.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class GeminiService {
         );
 
         String response = webClient.post()
-                .uri(geminiApiUrl + geminiApiKey)
+                .uri(geminiApiUrl + "?key=" + geminiApiKey)
                 .header("Content-Type", "application/json")
                 .bodyValue(requestBody)
                 .retrieve()
@@ -39,5 +40,6 @@ public class GeminiService {
                 .block();
 
         return response;
+
     }
 }
